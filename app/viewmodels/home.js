@@ -38,7 +38,7 @@
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
                             isBusy(true);
-                            slike({ Url: '/images/blank.png' });
+                            slike({ Url: 'images/blank.png' });
                             imagesLoading(true);
                             data.vratiSlikeArtikla(artikal.Id).done(function(slikeArtikla) {
                                 slike(slikeArtikla);

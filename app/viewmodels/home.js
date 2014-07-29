@@ -51,6 +51,9 @@
         },
         slikaj: function() {
             camera.capture(function (imageData) {
+                if (!idArtikla()) {
+                    return;
+                }
                 var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true };
                 slike.push(slika);
                 data.sacuvajSliku(slika).done(function() {
@@ -66,7 +69,8 @@
             for (var i = 0; i < s.length; i++) {
                 if (s[i].ArtikalId && s[i].IsNew) {
                     isBusy(true);
-                    data.sacuvajSliku(s[i]).done(function() {
+                    data.sacuvajSliku(s[i]).done(function () {
+                        s[i].IsNew = false;
                     }).always(function() {
                         isBusy(false);
                     });

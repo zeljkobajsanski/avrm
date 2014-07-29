@@ -64,17 +64,21 @@
         },
         sacuvaj: function () {
             if (!idArtikla()) {
+                alert('Artikal nije izabran');
                 return;
             }
             var slike = slike();
             for (var i = 0; i < slike.length; i++) {
                 if (slike[i].IsNew) {
+                    isBusy(true);
                     $.ajax({
                         url: 'http://192.168.1.2/MobileAVR/Data/SacuvajSliku',
                         dataType: 'json',
                         type: 'POST',
                         crossDomain: true,
                         data: slike[i]
+                    }).done(function() {
+                        isBusy(false);
                     });
                 }
             }

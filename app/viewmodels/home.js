@@ -26,13 +26,20 @@
                 alert(e);
             }
         },
+        slikaj: function() {
+            navigator.camera.getPicture(function(imageData) {
+                slike.push('data:image/jpeg;base64,' + imageData);
+            }, function(error) {
+                alert(error);
+            }, {
+                sourceType: Camera.PictureSourceType.CAMERA,
+                destinationType: Camera.DestinationType.DATA_URL,
+            });
+        },
         activate: function () {
             idArtikla('0766232');
             nazivArtikla('Artika');
             kataloskiBroj('87487102870');
-            slike.push('/images/general/1.jpg');
-            slike.push('/images/general/6.jpg');
-            slike.push('/images/general/2.jpg');
         },
         attached: function () {
             var owl = $(".slider-controls");

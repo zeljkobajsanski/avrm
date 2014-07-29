@@ -16,11 +16,15 @@
             return false;
         },
         skeniraj: function() {
-            cordova.plugins.barcodeScanner.scan(function(result) {
-                alert(result.text);
-            }, function(error) {
-                alert("Error");
-            });
+            try {
+                cordova.plugins.barcodeScanner.scan(function (result) {
+                    alert(result.text);
+                }, function (error) {
+                    alert("Error");
+                });
+            } catch (e) {
+                alert(e);
+            }
         },
         activate: function () {
             idArtikla('0766232');

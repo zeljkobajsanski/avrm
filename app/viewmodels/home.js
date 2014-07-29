@@ -27,14 +27,19 @@
             }
         },
         slikaj: function() {
-            navigator.camera.getPicture(function(imageData) {
-                slike.push('data:image/jpeg;base64,' + imageData);
-            }, function(error) {
-                alert(error);
-            }, {
-                sourceType: Camera.PictureSourceType.CAMERA,
-                destinationType: Camera.DestinationType.DATA_URL,
-            });
+            try {
+                navigator.camera.getPicture(function (imageData) {
+                    alert(imageData);
+                    slike.push('data:image/jpeg;base64,' + imageData);
+                }, function (error) {
+                    alert(error);
+                }, {
+                    sourceType: Camera.PictureSourceType.CAMERA,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                });
+            } catch (e) {
+                alert(e);
+            }
         },
         activate: function () {
             idArtikla('0766232');

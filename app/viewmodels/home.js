@@ -7,12 +7,16 @@
         brend = ko.observable(''),
         isBusy = ko.observable(false),
         notBusy = function() { isBusy(false); },
-        showError = function () { $(".tap-dismiss-notification").fadeIn(); };
+        showError = function () { $(".tap-dismiss-notification").fadeIn(); },
+        detaljiArtiklaNaslov = ko.computetd(function() {
+            return nazivArtikla() ? nazivArtikla() : 'Artikal nije izabran';
+        });
 
     var viewModel = {
         slike: slike,
         idArtikla : idArtikla,
         nazivArtikla: nazivArtikla,
+        detaljiArtiklaNaslov : detaljiArtiklaNaslov,
         brend: brend,
         isBusy: isBusy,
         kataloskiBroj: kataloskiBroj,

@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'modules/scanner'], function (http, scanner) {
+﻿define(['plugins/http', 'modules/scanner', 'modules/camera'], function (http, scanner, camera) {
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
@@ -46,37 +46,24 @@
             });
         },
         slikaj: function() {
-            try {
-                navigator.camera.getPicture(function (imageData) {
-                    slike.push({ ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew : true });
-                }, function (error) {
-                    $(".tap-dismiss-notification").fadeIn();
-                }, {
-                    quality: 50,
-                    sourceType: Camera.PictureSourceType.CAMERA,
-                    destinationType: Camera.DestinationType.DATA_URL,
-                    encodingType: Camera.EncodingType.PNG,
-                    correctOrientation: false
-                });
-            } catch (e) {
+            camera.capture(function(imageData) {
+                slike.push({ ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew : true });
+            }, 
+            function(error) {
                 $(".tap-dismiss-notification").fadeIn();
-            }
+            });
         },
         sacuvaj: function () {
-            if (!idArtikla()) {
-                alert('Artikal nije izabran');
-                return;
-            }
-            var slike = slike();
-            for (var i = 0; i < slike.length; i++) {
-                if (slike[i].IsNew) {
+            var s = slike();
+            for (var i = 0; i < s.length; i++) {
+                if (s[i].ArtikalId && s[i].IsNew) {
                     isBusy(true);
                     $.ajax({
                         url: 'http://192.168.1.2/MobileAVR/Data/SacuvajSliku',
                         dataType: 'json',
                         type: 'POST',
                         crossDomain: true,
-                        data: slike[i]
+                        data: s[i]
                     }).done(function() {
                         isBusy(false);
                     });

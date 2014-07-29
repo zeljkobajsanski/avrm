@@ -15,9 +15,16 @@
             $(event.currentTarget).toggleClass('toggle-1-active');
             return false;
         },
+        skeniraj: function() {
+            cordova.plugins.barcodeScanner.scan(function(result) {
+                alert(result.text);
+            }, function(error) {
+                alert("Error");
+            });
+        },
         activate: function () {
             idArtikla('0766232');
-            nazivArtikla('Artikallllllllll jkhgjkg hggkjjjjjjjjjjjjj hjk');
+            nazivArtikla('Artika');
             kataloskiBroj('87487102870');
             slike.push('/images/general/1.jpg');
             slike.push('/images/general/6.jpg');

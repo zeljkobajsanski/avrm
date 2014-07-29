@@ -19,19 +19,21 @@
         },
         skeniraj: function() {
             try {
-                http.get('http://192.168.1.2/MobileAVR/api/Artikli/893201').done(function (artikal) {
-                    idArtikla(artikal.Id);
-                    nazivArtikla(artikal.Naziv);
-                    kataloskiBroj(artikal.KataloskiBroj);
-                    brend(artikal.Brend);
-                }).fail(function() {
+                
+                cordova.plugins.barcodeScanner.scan(function (result) {
+                    if (result.text) {
+                        http.get('http://192.168.1.2/MobileAVR/api/Artikli/893201').done(function (artikal) {
+                            idArtikla(artikal.Id);
+                            nazivArtikla(artikal.Naziv);
+                            kataloskiBroj(artikal.KataloskiBroj);
+                            brend(artikal.Brend);
+                        }).fail(function () {
+                            $(".tap-dismiss-notification").fadeIn();
+                        });
+                    }
+                }, function (error) {
                     $(".tap-dismiss-notification").fadeIn();
                 });
-                //cordova.plugins.barcodeScanner.scan(function (result) {
-                //    alert(result.text);
-                //}, function (error) {
-                //    $(".tap-dismiss-notification").fadeIn();
-                //});
             } catch (e) {
                 $(".tap-dismiss-notification").fadeIn();
             }

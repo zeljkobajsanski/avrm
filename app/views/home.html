@@ -1,4 +1,4 @@
-﻿<div class="content">
+﻿<div class="content" id="homePage">
     <div class="container no-bottom">
         <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: true } }">
             <div>
@@ -12,7 +12,7 @@
     <div class="decoration"></div>
     <div class="container">
         <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla" >Detalji artikla</a>
+            <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla">Detalji artikla</a>
             <div class="toggle-content">
                 <div class="container">
                     <div class="one-half">
@@ -32,6 +32,11 @@
     <div class="container">
         <button class="button-big-icon icon-scanner button-green" style="float: left" data-bind="click: skeniraj">Skeniraj</button>
         <button class="button-big-icon icon-camera button-green" style="float: right" data-bind="click: slikaj">Slikaj</button>
+    </div>
+    <div class="container">
+        <div class="static-notification-red tap-dismiss-notification">
+            <p class="center-text uppercase">A red notification! Tap to dismiss!</p>
+        </div>
     </div>
 </div>
 

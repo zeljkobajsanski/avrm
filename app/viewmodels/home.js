@@ -20,7 +20,7 @@
                 cordova.plugins.barcodeScanner.scan(function (result) {
                     alert(result.text);
                 }, function (error) {
-                    alert("Error");
+                    $(".tap-dismiss-notification").fadeIn();
                 });
             } catch (e) {
                 alert(e);
@@ -29,16 +29,17 @@
         slikaj: function() {
             try {
                 navigator.camera.getPicture(function (imageData) {
-                    alert(imageData);
-                    slike.push('data:image/jpeg;base64,' + imageData);
+                    slike.push('data:image/png;base64,' + imageData);
                 }, function (error) {
-                    alert(error);
+                    $(".tap-dismiss-notification").fadeIn();
                 }, {
+                    quality: 50,
                     sourceType: Camera.PictureSourceType.CAMERA,
                     destinationType: Camera.DestinationType.DATA_URL,
+                    encodingType: Camera.EncodingType.PNG
                 });
             } catch (e) {
-                alert(e);
+                $(".tap-dismiss-notification").fadeIn();
             }
         },
         activate: function () {
@@ -55,6 +56,11 @@
             });
             $(".prev-slider").click(function () {
                 owl.trigger('owl.prev');
+                return false;
+            });
+            $(".tap-dismiss-notification").hide();
+            $('.tap-dismiss-notification').click(function () {
+                $(this).fadeOut();
                 return false;
             });
         }

@@ -36,7 +36,8 @@
                     quality: 50,
                     sourceType: Camera.PictureSourceType.CAMERA,
                     destinationType: Camera.DestinationType.DATA_URL,
-                    encodingType: Camera.EncodingType.PNG
+                    encodingType: Camera.EncodingType.PNG,
+                    correctOrientation: true
                 });
             } catch (e) {
                 $(".tap-dismiss-notification").fadeIn();

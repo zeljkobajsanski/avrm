@@ -5,13 +5,7 @@
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
         brend = ko.observable(''),
-        isBusy = ko.observable(false),
-        info = ko.observable();
-        info.subscribe(function () {
-            if (info()) {
-                $(".static-notification-yellow").fadeIn();
-            }
-        });
+        isBusy = ko.observable(false);
 
     var viewModel = {
         slike: slike,
@@ -19,7 +13,6 @@
         nazivArtikla: nazivArtikla,
         brend: brend,
         isBusy: isBusy,
-        info: info,
         kataloskiBroj: kataloskiBroj,
         prikaziDetaljeArtikla: function(data, event) {
             $(event.currentTarget).parent().find('.toggle-content').toggle(100);
@@ -30,14 +23,17 @@
             scanner.scan(function (result) {
                 if (result.text) {
                     isBusy(true);
-                    http.get('http://192.168.1.2/MobileAVR/api/Artikli/' + result.text).done(function (artikal) {
+                    http.get('http://192.168.1.2/MobileAVR/Data/VratiArtikal/' + result.text).done(function (artikal) {
                         if (artikal) {
                             idArtikla(artikal.Id);
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
                         } else {
-                            info("Artikal nije pronađen");
+                            idArtikla('');
+                            nazivArtikla('');
+                            kataloskiBroj('');
+                            brend('');
                         }
                     }).fail(function () {
                         $(".tap-dismiss-notification").fadeIn();
@@ -52,7 +48,7 @@
         slikaj: function() {
             try {
                 navigator.camera.getPicture(function (imageData) {
-                    slike.push('data:image/png;base64,' + imageData);
+                    slike.push({ ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew : true });
                 }, function (error) {
                     $(".tap-dismiss-notification").fadeIn();
                 }, {
@@ -66,8 +62,22 @@
                 $(".tap-dismiss-notification").fadeIn();
             }
         },
-        sacuvaj: function() {
-            
+        sacuvaj: function () {
+            if (!idArtikla()) {
+                return;
+            }
+            var slike = slike();
+            for (var i = 0; i < slike.length; i++) {
+                if (slike[i].IsNew) {
+                    $.ajax({
+                        url: 'http://192.168.1.2/MobileAVR/Data/SacuvajSliku',
+                        dataType: 'json',
+                        type: 'POST',
+                        crossDomain: true,
+                        data: slike[i]
+                    });
+                }
+            }
         },
         activate: function () {
         },
@@ -85,7 +95,6 @@
             $(".tap-dismiss-notification").hide();
             $('.tap-dismiss-notification').click(function () {
                 $(this).fadeOut();
-                info('');
                 return false;
             });
         }

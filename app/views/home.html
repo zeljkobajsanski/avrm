@@ -2,7 +2,7 @@
     <div class="container no-bottom">
         <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: true } }">
             <div>
-                <img data-bind="attr: { src: $data }" class="responsive-image" />
+                <img data-bind="attr: { src: Url }" class="responsive-image" />
                 <p class="small-slider-caption" data-bind="text: $parent.nazivArtikla"></p>
             </div>
         </div>
@@ -50,9 +50,6 @@
     <div class="container">
         <div class="static-notification-red tap-dismiss-notification">
             <p class="center-text uppercase">Greška</p>
-        </div>
-        <div class="static-notification-yellow tap-dismiss-notification">
-            <p class="center-text uppercase" data-bind="text: info"></p>
         </div>
     </div>
 </div>

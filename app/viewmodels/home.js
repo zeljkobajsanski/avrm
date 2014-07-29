@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'modules/scanner', 'modules/camera'], function (http, scanner, camera) {
+﻿define(['plugins/http', 'modules/scanner', 'modules/camera', 'modules/data'], function (http, scanner, camera, data) {
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
@@ -23,17 +23,21 @@
             scanner.scan(function (result) {
                 if (result.text) {
                     isBusy(true);
-                    http.get('http://192.168.1.2/MobileAVR/Data/VratiArtikal/' + result.text).done(function (artikal) {
+                    data.vratiArtikal(result.text).done(function (artikal) {
                         if (artikal) {
                             idArtikla(artikal.Id);
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
+                            data.vratiSlikeArtikla(artikal.Id).done(function(slikeArtikla) {
+                                slike(slikeArtikla);
+                            });
                         } else {
                             idArtikla('');
                             nazivArtikla('');
                             kataloskiBroj('');
                             brend('');
+                            slike([]);
                         }
                     }).fail(function () {
                         $(".tap-dismiss-notification").fadeIn();
@@ -46,8 +50,12 @@
             });
         },
         slikaj: function() {
-            camera.capture(function(imageData) {
-                slike.push({ ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew : true });
+            camera.capture(function (imageData) {
+                var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true };
+                slike.push(slika);
+                data.sacuvajSliku(slika).done(function() {
+                    slika.IsNew = false;
+                });
             }, 
             function(error) {
                 $(".tap-dismiss-notification").fadeIn();
@@ -58,13 +66,8 @@
             for (var i = 0; i < s.length; i++) {
                 if (s[i].ArtikalId && s[i].IsNew) {
                     isBusy(true);
-                    $.ajax({
-                        url: 'http://192.168.1.2/MobileAVR/Data/SacuvajSliku',
-                        dataType: 'json',
-                        type: 'POST',
-                        crossDomain: true,
-                        data: s[i]
-                    }).done(function() {
+                    data.sacuvajSliku(s[i]).done(function() {
+                    }).always(function() {
                         isBusy(false);
                     });
                 }

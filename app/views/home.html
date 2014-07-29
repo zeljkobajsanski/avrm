@@ -1,0 +1,37 @@
+﻿<div class="content">
+    <div class="container no-bottom">
+        <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: true } }">
+            <div>
+                <img data-bind="attr: { src: $data }" class="responsive-image" />
+                <p class="small-slider-caption" data-bind="text: $parent.nazivArtikla"></p>
+            </div>
+        </div>
+        <a href="#" class="next-slider"></a>
+        <a href="#" class="prev-slider"></a>
+    </div>
+    <div class="decoration"></div>
+    <div class="container">
+        <div class="toggle-1">
+            <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla" >Detalji artikla</a>
+            <div class="toggle-content">
+                <div class="container">
+                    <div class="one-half">
+                        <p>ID:</p>
+                        <p>Naziv:</p>
+                        <p>Kataloški broj:</p>
+                    </div>
+                    <div class="two-half last-column">
+                        <p data-bind="text: idArtikla"></p>
+                        <p data-bind="text: nazivArtikla"></p>
+                        <p data-bind="text: kataloskiBroj"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <button class="button-big-icon icon-scanner button-green" style="float: right">Skeniraj</button>
+        <button class="button-big-icon icon-camera button-green">Slikaj</button>
+    </div>
+</div>
+

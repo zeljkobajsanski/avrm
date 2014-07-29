@@ -10,7 +10,7 @@
         <a href="#" class="prev-slider"></a>
     </div>
     <div class="decoration"></div>
-    <div class="container">
+    <div class="container no-bottom" style="margin-bottom: 4px;">
         <div class="toggle-1">
             <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla">Detalji artikla</a>
             
@@ -42,8 +42,10 @@
     </div>
     <div class="container">
         <i class="spinner" style="float: left" data-bind="visible: isBusy"></i>
+        <div class="clear"></div>
         <button class="button-big-icon icon-scanner button-green" style="float: left" data-bind="click: skeniraj">Skeniraj</button>
-        <button class="button-big-icon icon-camera button-green" style="float: right" data-bind="click: slikaj">Slikaj</button>
+        <button class="button-big-icon icon-camera button-green" style="margin-left: 4px" data-bind="click: slikaj">Slikaj</button>
+        <button class="button-big-icon icon-save button-red" style="float: right" data-bind="click: sacuvaj">Sačuvaj</button>
     </div>
     <div class="container">
         <div class="static-notification-red tap-dismiss-notification">

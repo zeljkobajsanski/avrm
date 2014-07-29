@@ -53,11 +53,14 @@
                     sourceType: Camera.PictureSourceType.CAMERA,
                     destinationType: Camera.DestinationType.DATA_URL,
                     encodingType: Camera.EncodingType.PNG,
-                    correctOrientation: true
+                    correctOrientation: false
                 });
             } catch (e) {
                 $(".tap-dismiss-notification").fadeIn();
             }
+        },
+        sacuvaj: function() {
+            
         },
         activate: function () {
         },

@@ -535,6 +535,7 @@ a{
 .icon-mail{background-image:url(../images/icons/misc/mail.png);}
 .icon-camera{background-image:url(../images/icons/electrical/camera.png);}
 .icon-scanner{background-image:url(../images/icons/misc/magnifier2.png);}
+.icon-save{background-image:url(../images/icons/misc/paperclip.png);}
 
 
 /*////////////////*/
@@ -1379,8 +1380,9 @@ table tr:hover td{
 	text-transform:uppercase;
 	background-image:url(../images/status.gif);
 	background-repeat:no-repeat;
-	background-size:32px 32px;
+	background-size:24px 24px;
 	background-position:15px 0px;
+    margin-top: 8px;
 }
 
 .toggle-1-active{

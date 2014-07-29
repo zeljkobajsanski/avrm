@@ -5,7 +5,9 @@
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
         brend = ko.observable(''),
-        isBusy = ko.observable(false);
+        isBusy = ko.observable(false),
+        notBusy = function() { isBusy(false); },
+        showError = function () { $(".tap-dismiss-notification").fadeIn(); };
 
     var viewModel = {
         slike: slike,
@@ -29,9 +31,10 @@
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
+                            isBusy(true);
                             data.vratiSlikeArtikla(artikal.Id).done(function(slikeArtikla) {
                                 slike(slikeArtikla);
-                            });
+                            }).always(notBusy);
                         } else {
                             idArtikla('');
                             nazivArtikla('');
@@ -40,13 +43,13 @@
                             slike([]);
                         }
                     }).fail(function () {
-                        $(".tap-dismiss-notification").fadeIn();
+                        showError();
                     }).always(function () {
                         isBusy(false);
                     });
                 }
             }, function () {
-                $(".tap-dismiss-notification").fadeIn();
+                showError();
             });
         },
         slikaj: function() {
@@ -56,12 +59,15 @@
                 }
                 var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true };
                 slike.push(slika);
+                isBusy(true);
                 data.sacuvajSliku(slika).done(function() {
                     slika.IsNew = false;
-                });
+                }).fail(function() {
+                    showError();
+                }).always(notBusy);
             }, 
             function(error) {
-                $(".tap-dismiss-notification").fadeIn();
+                showError();
             });
         },
         sacuvaj: function () {
@@ -73,7 +79,7 @@
                         s[i].IsNew = false;
                     }).always(function() {
                         isBusy(false);
-                    });
+                    }).fail(showError);
                 }
             }
         },

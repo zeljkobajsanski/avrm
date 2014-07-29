@@ -1,14 +1,16 @@
-﻿define(function () {
+﻿define(['plugins/http'], function (http) {
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
         nazivArtikla = ko.observable(''),
-        kataloskiBroj = ko.observable('');
+        kataloskiBroj = ko.observable(''),
+        brend = ko.observable('');
 
     var viewModel = {
         slike: slike,
         idArtikla : idArtikla,
         nazivArtikla: nazivArtikla,
+        brend: brend,
         kataloskiBroj: kataloskiBroj,
         prikaziDetaljeArtikla: function(data, event) {
             $(event.currentTarget).parent().find('.toggle-content').toggle(100);
@@ -17,13 +19,21 @@
         },
         skeniraj: function() {
             try {
-                cordova.plugins.barcodeScanner.scan(function (result) {
-                    alert(result.text);
-                }, function (error) {
+                http.get('http://192.168.1.2/MobileAVR/api/Artikli/893201').done(function (artikal) {
+                    idArtikla(artikal.Id);
+                    nazivArtikla(artikal.Naziv);
+                    kataloskiBroj(artikal.KataloskiBroj);
+                    brend(artikal.Brend);
+                }).fail(function() {
                     $(".tap-dismiss-notification").fadeIn();
                 });
+                //cordova.plugins.barcodeScanner.scan(function (result) {
+                //    alert(result.text);
+                //}, function (error) {
+                //    $(".tap-dismiss-notification").fadeIn();
+                //});
             } catch (e) {
-                alert(e);
+                $(".tap-dismiss-notification").fadeIn();
             }
         },
         slikaj: function() {
@@ -44,9 +54,6 @@
             }
         },
         activate: function () {
-            idArtikla('0766232');
-            nazivArtikla('Artika');
-            kataloskiBroj('87487102870');
         },
         attached: function () {
             var owl = $(".slider-controls");

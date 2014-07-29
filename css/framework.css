@@ -816,6 +816,7 @@ a{
 	font-family:'Dosis', sans-serif;
 	font-weight:bold;
 	font-size:12px;
+    width: 120px;
 }
 
 .price{

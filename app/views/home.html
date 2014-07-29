@@ -13,18 +13,28 @@
     <div class="container">
         <div class="toggle-1">
             <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla">Detalji artikla</a>
-            <div class="toggle-content">
-                <div class="container">
-                    <div class="one-half">
-                        <p>ID:</p>
-                        <p>Naziv:</p>
-                        <p>Kataloški broj:</p>
-                    </div>
-                    <div class="two-half last-column">
-                        <p data-bind="text: idArtikla"></p>
-                        <p data-bind="text: nazivArtikla"></p>
-                        <p data-bind="text: kataloskiBroj"></p>
-                    </div>
+            <div class="toggle-content" style="padding: 0 10px;">
+                <div class="container no-bottom">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="table-sub-title">ID</td>
+                                <td data-bind="text: idArtikla"></td>
+                            </tr>
+                            <tr>
+                                <td class="table-sub-title">Naziv</td>
+                                <td data-bind="text: nazivArtikla"></td>
+                            </tr>
+                            <tr>
+                                <td class="table-sub-title">Kataloški broj</td>
+                                <td data-bind="text: kataloskiBroj"></td>
+                            </tr>
+                            <tr>
+                                <td class="table-sub-title">Brend</td>
+                                <td data-bind="text: brend"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

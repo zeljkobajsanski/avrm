@@ -13,6 +13,7 @@
     <div class="container">
         <div class="toggle-1">
             <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla">Detalji artikla</a>
+            
             <div class="toggle-content" style="padding: 0 10px;">
                 <div class="container no-bottom">
                     <table class="table">
@@ -40,6 +41,7 @@
         </div>
     </div>
     <div class="container">
+        <i class="spinner" style="float: left" data-bind="visible: isBusy"></i>
         <button class="button-big-icon icon-scanner button-green" style="float: left" data-bind="click: skeniraj">Skeniraj</button>
         <button class="button-big-icon icon-camera button-green" style="float: right" data-bind="click: slikaj">Slikaj</button>
     </div>

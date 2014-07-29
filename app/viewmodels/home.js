@@ -4,13 +4,15 @@
         idArtikla = ko.observable(''),
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
-        brend = ko.observable('');
+        brend = ko.observable(''),
+        isBusy = ko.observable(false);
 
     var viewModel = {
         slike: slike,
         idArtikla : idArtikla,
         nazivArtikla: nazivArtikla,
         brend: brend,
+        isBusy: isBusy,
         kataloskiBroj: kataloskiBroj,
         prikaziDetaljeArtikla: function(data, event) {
             $(event.currentTarget).parent().find('.toggle-content').toggle(100);
@@ -19,9 +21,9 @@
         },
         skeniraj: function() {
             try {
-                
                 cordova.plugins.barcodeScanner.scan(function (result) {
                     if (result.text) {
+                        isBusy(true);
                         http.get('http://192.168.1.2/MobileAVR/api/Artikli/893201').done(function (artikal) {
                             idArtikla(artikal.Id);
                             nazivArtikla(artikal.Naziv);
@@ -29,6 +31,8 @@
                             brend(artikal.Brend);
                         }).fail(function () {
                             $(".tap-dismiss-notification").fadeIn();
+                        }).always(function() {
+                            isBusy(false);
                         });
                     }
                 }, function (error) {

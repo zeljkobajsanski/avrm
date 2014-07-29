@@ -35,7 +35,6 @@
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
-                            isBusy(true);
                             data.vratiSlikeArtikla(artikal.Id).done(function(slikeArtikla) {
                                 slike(slikeArtikla);
                             }).always(function() {
@@ -47,11 +46,13 @@
                             kataloskiBroj('');
                             brend('');
                             slike([]);
+                            notBusy();
                         }
                     }).fail(function () {
+                        notBusy();
                         showError();
                     }).always(function () {
-                        isBusy(false);
+                        //isBusy(false);
                     });
                 }
             }, function () {

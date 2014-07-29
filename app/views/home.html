@@ -44,12 +44,15 @@
         <i class="spinner" style="float: left" data-bind="visible: isBusy"></i>
         <div class="clear"></div>
         <button class="button-big-icon icon-scanner button-green" style="float: left" data-bind="click: skeniraj">Skeniraj</button>
-        <button class="button-big-icon icon-camera button-green" style="margin-left: 4px" data-bind="click: slikaj">Slikaj</button>
-        <button class="button-big-icon icon-save button-red" style="float: right" data-bind="click: sacuvaj">Sačuvaj</button>
+        <button class="button-big-icon icon-camera button-green" style="margin-left: 4px" data-bind="click: slikaj">Slikaj</button><br/>
+        <button class="button-big-icon icon-save button-red" style="margin-top: 4px" data-bind="click: sacuvaj">Sačuvaj</button>
     </div>
     <div class="container">
         <div class="static-notification-red tap-dismiss-notification">
-            <p class="center-text uppercase">A red notification! Tap to dismiss!</p>
+            <p class="center-text uppercase">Greška</p>
+        </div>
+        <div class="static-notification-yellow tap-dismiss-notification">
+            <p class="center-text uppercase" data-bind="text: info"></p>
         </div>
     </div>
 </div>

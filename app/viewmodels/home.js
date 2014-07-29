@@ -1,11 +1,17 @@
-﻿define(['plugins/http'], function (http) {
+﻿define(['plugins/http', 'modules/scanner'], function (http, scanner) {
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
         brend = ko.observable(''),
-        isBusy = ko.observable(false);
+        isBusy = ko.observable(false),
+        info = ko.observable();
+        info.subscribe(function () {
+            if (info()) {
+                $(".static-notification-yellow").fadeIn();
+            }
+        });
 
     var viewModel = {
         slike: slike,
@@ -13,6 +19,7 @@
         nazivArtikla: nazivArtikla,
         brend: brend,
         isBusy: isBusy,
+        info: info,
         kataloskiBroj: kataloskiBroj,
         prikaziDetaljeArtikla: function(data, event) {
             $(event.currentTarget).parent().find('.toggle-content').toggle(100);
@@ -20,27 +27,27 @@
             return false;
         },
         skeniraj: function() {
-            try {
-                cordova.plugins.barcodeScanner.scan(function (result) {
-                    if (result.text) {
-                        isBusy(true);
-                        http.get('http://192.168.1.2/MobileAVR/api/Artikli/893201').done(function (artikal) {
+            scanner.scan(function (result) {
+                if (result.text) {
+                    isBusy(true);
+                    http.get('http://192.168.1.2/MobileAVR/api/Artikli/' + result.text).done(function (artikal) {
+                        if (artikal) {
                             idArtikla(artikal.Id);
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
-                        }).fail(function () {
-                            $(".tap-dismiss-notification").fadeIn();
-                        }).always(function() {
-                            isBusy(false);
-                        });
-                    }
-                }, function (error) {
-                    $(".tap-dismiss-notification").fadeIn();
-                });
-            } catch (e) {
+                        } else {
+                            info("Artikal nije pronađen");
+                        }
+                    }).fail(function () {
+                        $(".tap-dismiss-notification").fadeIn();
+                    }).always(function () {
+                        isBusy(false);
+                    });
+                }
+            }, function () {
                 $(".tap-dismiss-notification").fadeIn();
-            }
+            });
         },
         slikaj: function() {
             try {
@@ -78,6 +85,7 @@
             $(".tap-dismiss-notification").hide();
             $('.tap-dismiss-notification').click(function () {
                 $(this).fadeOut();
+                info('');
                 return false;
             });
         }

@@ -8,7 +8,7 @@
         isBusy = ko.observable(false),
         notBusy = function() { isBusy(false); },
         showError = function () { $(".tap-dismiss-notification").fadeIn(); },
-        detaljiArtiklaNaslov = ko.computetd(function() {
+        detaljiArtiklaNaslov = ko.computed(function() {
             return nazivArtikla() ? nazivArtikla() : 'Artikal nije izabran';
         });
 

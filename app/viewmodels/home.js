@@ -91,22 +91,22 @@
             }
         },
         posaljiEmail: function (slika) {
-            email.send(function () {}, slika.Url.substring(22), nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
+            email.send(function () {}, slika.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
         },
         activate: function () {
             
         },
         attached: function () {
-            var owl = $(".slider-controls");
+            //var owl = $(".slider-controls");
             // Custom Navigation Events
-            $(".next-slider").click(function () {
-                owl.trigger('owl.next');
-                return false;
-            });
-            $(".prev-slider").click(function () {
-                owl.trigger('owl.prev');
-                return false;
-            });
+            //$(".next-slider").click(function () {
+            //    owl.trigger('owl.next');
+            //    return false;
+            //});
+            //$(".prev-slider").click(function () {
+            //    owl.trigger('owl.prev');
+            //    return false;
+            //});
             $(".tap-dismiss-notification").hide();
             $('.tap-dismiss-notification').click(function () {
                 $(this).fadeOut();

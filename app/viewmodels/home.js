@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'modules/scanner', 'modules/camera', 'modules/data'], function (http, scanner, camera, data) {
+﻿define(['plugins/http', 'modules/scanner', 'modules/camera', 'modules/data', 'modules/email'], function (http, scanner, camera, data, email) {
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
@@ -89,6 +89,9 @@
                     }).fail(showError);
                 }
             }
+        },
+        posaljiEmail: function (slika) {
+            email.send(function () {}, slika.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
         },
         activate: function () {
             

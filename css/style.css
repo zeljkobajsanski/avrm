@@ -117,11 +117,19 @@ body {
 	background-repeat:no-repeat;
 	width:50px;
 	height:50px;
-	background-size:18px 12px;
-	background-position:15px 18px;
-	position:absolute;
+	background-size:30px 30px;
+	background-position:15px 20px;
+	/*position:absolute;
 	right:0px;
-	top:0px;
+	top:0px;*/
+    padding: 30px;
+}
+
+.send-mail-icon {
+    background-image:url(../images/misc/deploy-mail.png);
+    background-repeat:no-repeat;
+    padding: 19px;
+    background-position: 0;
 }
 
 .deploy-info{

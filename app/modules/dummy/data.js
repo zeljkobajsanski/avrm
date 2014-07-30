@@ -1,5 +1,5 @@
 ﻿define(['plugins/http'], function(http) {
-    var url = 'http://46.165.252.195/AVRM/Data/';
+    var url = 'http://192.168.1.2/MobileAVR/Data/';
     return {
         vratiArtikal: function(barkod) {
             return http.get(url + "VratiArtikal/" + barkod);

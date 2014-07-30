@@ -1,7 +1,8 @@
 ﻿define(function() {
     return {
         scan: function (success, error) {
-            cordova.plugins.barcodeScanner.scan(success, error);
+            success({ text: '8600115078219' });
+            //success({ text: '5908309530905' });
         }
     };
 })

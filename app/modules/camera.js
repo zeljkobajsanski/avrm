@@ -1,10 +1,6 @@
 ﻿define(function() {
     return {
         capture: function(successCallback, error) {
-
-            //successCallback("kldjsflskjačlkjdsačlkfja");
-            //return;
-
             navigator.camera.getPicture(function (image) {
                 successCallback(image);
             }, function (e) {

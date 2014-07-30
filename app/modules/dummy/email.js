@@ -1,8 +1,9 @@
-﻿define(function() {
+﻿define(['durandal/system'], function(sys) {
 
     var showEmailComposer = function (subject, body,
         toRecipients, ccRecipients, bccRecipients, bIsHTML, attachments, attachmentsData) {
-        console.log("****************************AVVIATO");
+        sys.log("*******************************");
+        
         var args = {};
         if (toRecipients)
             args.toRecipients = toRecipients;
@@ -24,6 +25,7 @@
 
     return {
         send: function (imageData, subject, body) {
+            sys.log(imageData);
             showEmailComposer(subject, body, null, null, null, false, null, [['slika.png', imageData]]);
         }
     };

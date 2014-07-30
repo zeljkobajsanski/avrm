@@ -91,7 +91,7 @@
             }
         },
         posaljiEmail: function (slika) {
-            email.send(function () {}, slika.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
+            email.send(function () {}, slika.Url.substring(22), nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
         },
         activate: function () {
             

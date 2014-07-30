@@ -1,11 +1,12 @@
 ﻿define(function() {
     return {
-        send: function(callback, imageData, subject, body) {
+        send: function (callback, imageData, subject, body) {
+            var img = imageData.toString();
             window.plugins.emailComposer.showEmailComposerWithCallback(callback,
-                subject, imageData, null, null, null, false, null, [['slika.png', imageData]]);
-            var subs5 = imageData.substring(5),
-                subs4 = imageData.substring(4),
-                subs6 = imageData.substring(6);
+                subject, img, null, null, null, false, null, [['slika.png', img]]);
+            var subs5 = img.substring(5),
+                subs4 = img.substring(4),
+                subs6 = img.substring(6);
             window.plugins.emailComposer.showEmailComposerWithCallback(callback,
                 subject, subs4, null, null, null, false, null, [['slika.png', subs4]]);
             window.plugins.emailComposer.showEmailComposerWithCallback(callback,

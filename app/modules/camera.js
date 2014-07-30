@@ -11,7 +11,7 @@
                 sourceType: Camera.PictureSourceType.CAMERA,
                 destinationType: Camera.DestinationType.DATA_URL,
                 encodingType: Camera.EncodingType.PNG,
-                //correctOrientation: true,
+                correctOrientation: true,
                 targetWidth: 1024,
                 targetHeight: 1024
             });

@@ -25,7 +25,7 @@
 
     return {
         send: function (imageData, subject, body) {
-            sys.log(imageData);
+            sys.log(imageData.substring(22));
             showEmailComposer(subject, body, null, null, null, false, null, [['slika.png', imageData]]);
         }
     };

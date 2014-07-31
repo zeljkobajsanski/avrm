@@ -2,8 +2,7 @@
     return {
         send: function (imageData, subject, body) {
             try {
-                //window.plugins.emailComposer.showEmailComposerWithCallback(function (e) { alert(e); }, subject, body, null, null, null, false, null, [['slika.png', imageData]]);
-                window.plugins.emailComposer.showEmailComposerWithCallback(null, subject, body, null, null, null, false, null, [['Slika.png', imageData]]);
+                window.plugins.emailComposer.showEmailComposerWithCallback(null, subject, body, null, null, null, false, null, [['Slika.png', imageData.toString()]]);
             } catch (exc) {
                 alert(exc);
             }

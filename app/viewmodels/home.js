@@ -15,20 +15,24 @@
         }),
         sacuvajSliku = function(slika) {
             isBusy(true);
-            data.sacuvajSliku(slika).done(function (status) {
-                if (status != "ok") {
+            try {
+                data.sacuvajSliku(slika).done(function (status) {
+                    if (status != "ok") {
+                        showError();
+                        if (confirm(status + '. Da li želite da ponovite snimanje?')) {
+                            sacuvajSliku(slika);
+                        }
+                    }
+                    slika.IsNew = false;
+                }).fail(function (err) {
                     showError();
-                    if (confirm(status + '. Da li želite da ponovite snimanje?')) {
+                    if (confirm('Da li želite da ponovite snimanje?')) {
                         sacuvajSliku(slika);
                     }
-                }
-                slika.IsNew = false;
-            }).fail(function (err) {
+                }).always(notBusy);
+            } catch (e) {
                 showError();
-                if (confirm('Da li želite da ponovite snimanje?')) {
-                    sacuvajSliku(slika);
-                }
-            }).always(notBusy);
+            }
         };
 
     var viewModel = {
@@ -109,12 +113,13 @@
         posaljiEmail: function (s, el) {
             email.send(s.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
         },
-        postaviDefaultSliku: function(s) {
+        postaviDefaultSliku: function (s) {
+            isBusy(true);
             data.postaviDefaultSliku(s).done(function (result) {
                 //$.each(slike, function(i, slika) {
                 //    slika.IsDefault(false);
                 //});
-                if (result != "Ok" && confirm("Default slika nije postavljena. Želite da pokušate ponovo?")) {
+                if (result != "ok" && confirm("Default slika nije postavljena. Želite da pokušate ponovo?")) {
                     postaviDefaultSliku(s);
                     return;
                 }
@@ -122,6 +127,8 @@
                 return;
             }).fail(function() {
                 
+            }).always(function() {
+                isBusy(false);
             });
         },
         activate: function () {

@@ -1,5 +1,5 @@
 ﻿define(['plugins/http'], function(http) {
-    var url = 'http://localhost/MobileAVR/Data/';
+    var url = 'http://localhost/AVRMobile/Data/';
     return {
         vratiArtikal: function(barkod) {
             return http.get(url + "VratiArtikal/" + barkod);
@@ -10,6 +10,15 @@
         sacuvajSliku : function(slika) {
             return $.ajax({
                 url: url + 'SacuvajSliku',
+                dataType: 'json',
+                type: 'POST',
+                crossDomain: true,
+                data: slika
+            });
+        },
+        postaviDefaultSliku: function (slika) {
+            return $.ajax({
+                url: url + 'PostaviDefaultSliku',
                 dataType: 'json',
                 type: 'POST',
                 crossDomain: true,

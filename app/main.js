@@ -6,7 +6,7 @@
         'transitions': '../js/durandal/transitions',
         'knockout': '../js/knockout-3.1.0',
         'jquery': '../js/jquery',
-        //'modules': 'modules/dummy',
+         //'modules': 'modules/dummy',
         'modules': 'modules',
     }
 });

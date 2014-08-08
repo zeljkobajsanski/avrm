@@ -7,10 +7,29 @@
         brend = ko.observable(''),
         isBusy = ko.observable(false),
         notBusy = function() { isBusy(false); },
-        showError = function() { $(".tap-dismiss-notification").fadeIn(); },
+        showError = function() {
+            $(".tap-dismiss-notification").fadeIn().fadeOut(4000);
+        },
         detaljiArtiklaNaslov = ko.computed(function() {
             return nazivArtikla() ? nazivArtikla() : 'Artikal nije izabran';
-        });
+        }),
+        sacuvajSliku = function(slika) {
+            isBusy(true);
+            data.sacuvajSliku(slika).done(function (status) {
+                if (status != "ok") {
+                    showError();
+                    if (confirm(status + '. Da li želite da ponovite snimanje?')) {
+                        sacuvajSliku(slika);
+                    }
+                }
+                slika.IsNew = false;
+            }).fail(function (err) {
+                showError();
+                if (confirm('Da li želite da ponovite snimanje?')) {
+                    sacuvajSliku(slika);
+                }
+            }).always(notBusy);
+        };
 
     var viewModel = {
         slike: slike,
@@ -35,8 +54,10 @@
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
-                            data.vratiSlikeArtikla(artikal.Id).done(function(slikeArtikla) {
-                                slike(slikeArtikla);
+                            data.vratiSlikeArtikla(artikal.Id).done(function (slikeArtikla) {
+                                slike($.map(slikeArtikla, function(s) {
+                                    return { ArtikalId: s.ArtikalId, IsDefault: ko.observable(s.IsDefault), Url: s.Url };
+                                }));
                             }).always(function() {
                                 notBusy();
                             });
@@ -66,12 +87,7 @@
                 }
                 var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true };
                 slike.push(slika);
-                isBusy(true);
-                data.sacuvajSliku(slika).done(function() {
-                    slika.IsNew = false;
-                }).fail(function() {
-                    showError();
-                }).always(notBusy);
+                sacuvajSliku(slika);
             }, 
             function(error) {
                 showError();
@@ -90,8 +106,23 @@
                 }
             }
         },
-        posaljiEmail: function (slika) {
-            email.send(slika.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
+        posaljiEmail: function (s, el) {
+            email.send(s.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
+        },
+        postaviDefaultSliku: function(s) {
+            data.postaviDefaultSliku(s).done(function (result) {
+                //$.each(slike, function(i, slika) {
+                //    slika.IsDefault(false);
+                //});
+                if (result != "Ok" && confirm("Default slika nije postavljena. Želite da pokušate ponovo?")) {
+                    postaviDefaultSliku(s);
+                    return;
+                }
+                s.IsDefault(true);
+                return;
+            }).fail(function() {
+                
+            });
         },
         activate: function () {
             
@@ -108,10 +139,10 @@
             //    return false;
             //});
             $(".tap-dismiss-notification").hide();
-            $('.tap-dismiss-notification').click(function () {
-                $(this).fadeOut();
-                return false;
-            });
+            //$('.tap-dismiss-notification').click(function () {
+            //    $(this).fadeOut();
+            //    return false;
+            //});
         }
     };
 

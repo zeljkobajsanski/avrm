@@ -1,11 +1,12 @@
 ﻿<div class="content" id="homePage">
     <div class="container no-bottom">
-        <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: false, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: false } }">
+        <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: false } }">
             <div>
-                <img data-bind="attr: { src: Url }" class="responsive-image" />
+                <img data-bind="attr: { src: Url }, css: { 'default-img' : IsDefault}" class="responsive-image" />
                 <p class="small-slider-caption">
                     <!--<strong data-bind="text: $parent.nazivArtikla"></strong>-->
                     <a href="#" class="send-mail-icon" data-bind="click: $parent.posaljiEmail"></a>
+                    <a href="#" class="make-default-image-icon" data-bind="click: $parent.postaviDefaultSliku"></a>
                     <!--<a href="#" class="send-mail-icon" style="margin-left: 4px"></a>-->
                 </p>
                 

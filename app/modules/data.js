@@ -1,5 +1,6 @@
 ﻿define(['plugins/http'], function(http) {
-    var url = 'http://46.165.252.195/AVRM/Data/';
+    //var url = 'http://46.165.252.195/AVRM/Data/';
+    var url = 'http://192.168.0.11/AVRMobile/Data/';
     return {
         vratiArtikal: function(barkod) {
             return http.get(url + "VratiArtikal/" + barkod);
@@ -10,6 +11,15 @@
         sacuvajSliku : function(slika) {
             return $.ajax({
                 url: url + 'SacuvajSliku',
+                dataType: 'json',
+                type: 'POST',
+                crossDomain: true,
+                data: slika
+            });
+        },
+        postaviDefaultSliku : function(slika) {
+            return $.ajax({
+                url: url + 'PostaviDefaultSliku',
                 dataType: 'json',
                 type: 'POST',
                 crossDomain: true,

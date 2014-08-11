@@ -38,7 +38,8 @@
 
     var viewModel = {
         slike: slike,
-        idArtikla : idArtikla,
+        idArtikla: idArtikla,
+        maticniBroj: maticniBroj,
         nazivArtikla: nazivArtikla,
         detaljiArtiklaNaslov : detaljiArtiklaNaslov,
         brend: brend,

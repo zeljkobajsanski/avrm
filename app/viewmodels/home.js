@@ -76,6 +76,7 @@
                             brend('');
                             slike([]);
                             notBusy();
+                            alert('Artikal nije pronađen. Pokušajte ponovo');
                         }
                     }).fail(function () {
                         notBusy();

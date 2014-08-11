@@ -89,7 +89,7 @@
                 if (!idArtikla()) {
                     return;
                 }
-                var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true };
+                var slika = { ArtikalId: idArtikla(), Url: 'data:image/png;base64,' + imageData, IsNew: true, IsDefault: ko.observable(false) };
                 slike.push(slika);
                 sacuvajSliku(slika);
             }, 

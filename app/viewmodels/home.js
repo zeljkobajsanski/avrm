@@ -2,6 +2,7 @@
 
     var slike = ko.observableArray([]),
         idArtikla = ko.observable(''),
+        maticniBroj = ko.observable(''),
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
         brend = ko.observable(''),
@@ -55,6 +56,7 @@
                     data.vratiArtikal(result.text).done(function (artikal) {
                         if (artikal) {
                             idArtikla(artikal.Id);
+                            maticniBroj(artikal.MaticniBroj);
                             nazivArtikla(artikal.Naziv);
                             kataloskiBroj(artikal.KataloskiBroj);
                             brend(artikal.Brend);
@@ -67,6 +69,7 @@
                             });
                         } else {
                             idArtikla('');
+                            maticniBroj('');
                             nazivArtikla('');
                             kataloskiBroj('');
                             brend('');

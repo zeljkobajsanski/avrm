@@ -5,6 +5,7 @@
         maticniBroj = ko.observable(''),
         nazivArtikla = ko.observable(''),
         kataloskiBroj = ko.observable(''),
+        ean = ko.observable(''),
         brend = ko.observable(''),
         isBusy = ko.observable(false),
         notBusy = function() { isBusy(false); },
@@ -14,6 +15,39 @@
         detaljiArtiklaNaslov = ko.computed(function() {
             return nazivArtikla() ? nazivArtikla() : 'Artikal nije izabran';
         }),
+        nadjiArtikal = function() {
+            isBusy(true);
+            data.vratiArtikal(ean()).done(function (artikal) {
+                if (artikal) {
+                    idArtikla(artikal.Id);
+                    maticniBroj(artikal.MaticniBroj);
+                    nazivArtikla(artikal.Naziv);
+                    kataloskiBroj(artikal.KataloskiBroj);
+                    brend(artikal.Brend);
+                    data.vratiSlikeArtikla(artikal.Id).done(function (slikeArtikla) {
+                        slike($.map(slikeArtikla, function (s) {
+                            return { ArtikalId: s.ArtikalId, IsDefault: ko.observable(s.IsDefault), Url: s.Url };
+                        }));
+                    }).always(function () {
+                        notBusy();
+                    });
+                } else {
+                    idArtikla('');
+                    maticniBroj('');
+                    nazivArtikla('');
+                    kataloskiBroj('');
+                    brend('');
+                    slike([]);
+                    notBusy();
+                    alert('Artikal nije pronađen. Pokušajte ponovo');
+                }
+            }).fail(function () {
+                notBusy();
+                showError();
+            }).always(function () {
+                //isBusy(false);
+            });
+        },
         sacuvajSliku = function(slika) {
             isBusy(true);
             try {
@@ -44,6 +78,7 @@
         detaljiArtiklaNaslov : detaljiArtiklaNaslov,
         brend: brend,
         kataloskiBroj: kataloskiBroj,
+        ean: ean,
         isBusy: isBusy,
         prikaziDetaljeArtikla: function(data, event) {
             $(event.currentTarget).parent().find('.toggle-content').toggle(100);
@@ -53,37 +88,8 @@
         skeniraj: function() {
             scanner.scan(function (result) {
                 if (result.text) {
-                    isBusy(true);
-                    data.vratiArtikal(result.text).done(function (artikal) {
-                        if (artikal) {
-                            idArtikla(artikal.Id);
-                            maticniBroj(artikal.MaticniBroj);
-                            nazivArtikla(artikal.Naziv);
-                            kataloskiBroj(artikal.KataloskiBroj);
-                            brend(artikal.Brend);
-                            data.vratiSlikeArtikla(artikal.Id).done(function (slikeArtikla) {
-                                slike($.map(slikeArtikla, function(s) {
-                                    return { ArtikalId: s.ArtikalId, IsDefault: ko.observable(s.IsDefault), Url: s.Url };
-                                }));
-                            }).always(function() {
-                                notBusy();
-                            });
-                        } else {
-                            idArtikla('');
-                            maticniBroj('');
-                            nazivArtikla('');
-                            kataloskiBroj('');
-                            brend('');
-                            slike([]);
-                            notBusy();
-                            alert('Artikal nije pronađen. Pokušajte ponovo');
-                        }
-                    }).fail(function () {
-                        notBusy();
-                        showError();
-                    }).always(function () {
-                        //isBusy(false);
-                    });
+                    ean(result.text);
+                    nadjiArtikal();
                 }
             }, function () {
                 showError();
@@ -114,6 +120,9 @@
                     }).fail(showError);
                 }
             }
+        },
+        unetEan: function() {
+            nadjiArtikal();
         },
         posaljiEmail: function (s, el) {
             email.send(s.Url, nazivArtikla(), 'Šaljemo vam željenu sliku artikla. Vaš Nineks');
@@ -159,4 +168,5 @@
     };
 
     return viewModel;
+    
 })

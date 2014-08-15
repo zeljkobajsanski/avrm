@@ -28,6 +28,8 @@
                         slike($.map(slikeArtikla, function (s) {
                             return { ArtikalId: s.ArtikalId, IsDefault: ko.observable(s.IsDefault), Url: s.Url };
                         }));
+                        vidljiveSlike(true);
+                        vidljiviDetalji(false);
                     }).always(function () {
                         notBusy();
                     });
@@ -68,7 +70,9 @@
             } catch (e) {
                 showError();
             }
-        };
+        },
+        vidljiveSlike = ko.observable(false),
+        vidljiviDetalji = ko.observable(false);
 
     var viewModel = {
         slike: slike,
@@ -80,10 +84,25 @@
         kataloskiBroj: kataloskiBroj,
         ean: ean,
         isBusy: isBusy,
-        prikaziDetaljeArtikla: function(data, event) {
-            $(event.currentTarget).parent().find('.toggle-content').toggle(100);
-            $(event.currentTarget).toggleClass('toggle-1-active');
-            return false;
+        vidljiveSlike: vidljiveSlike,
+        vidljiviDetalji: vidljiviDetalji,
+        prikaziDetaljeArtikla: function(d, event) {
+            //$(event.currentTarget).parent().find('.toggle-content').toggle(100);
+            //$(event.currentTarget).toggleClass('toggle-1-active');
+            //$("#slika-tab-header").removeClass('toggle-1-active');
+            //$("#slika-tab-content").hide();
+            //return false;
+            vidljiveSlike(false);
+            vidljiviDetalji(true);
+        },
+        prikaziSliku: function(d, event) {
+            //$(event.currentTarget).parent().find('.toggle-content').toggle(100);
+            //$(event.currentTarget).toggleClass('toggle-1-active');
+            //$("#detalji-tab-header").removeClass('toggle-1-active');
+            //$("#detalji-tab-content").hide();
+            //return false;
+            vidljiveSlike(true);
+            vidljiviDetalji(false);
         },
         skeniraj: function() {
             scanner.scan(function (result) {

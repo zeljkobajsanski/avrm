@@ -1,29 +1,38 @@
 ﻿<div class="content" id="homePage">
     <div class="container no-bottom">
-        <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: false } }">
-            <div>
-                <img data-bind="attr: { src: Url }, css: { 'default-img' : IsDefault}" class="responsive-image" />
-                <p class="small-slider-caption">
-                    <!--<strong data-bind="text: $parent.nazivArtikla"></strong>-->
-                    <a href="#" class="send-mail-icon" data-bind="click: $parent.posaljiEmail"></a>
-                    <a href="#" class="make-default-image-icon" data-bind="click: $parent.postaviDefaultSliku"></a>
-                    <!--<a href="#" class="send-mail-icon" style="margin-left: 4px"></a>-->
-                </p>
-                
+        <div class="toggle-1" data-bind="accordionVisible: vidljiveSlike">
+            <a href="#" class="deploy-toggle-1" data-bind="click: prikaziSliku" id="slika-tab-header">Slika</a>
+            <div class="toggle-content" id="slika-tab-content">
+                <div class="container">
+                    <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: false } }">
+                        <div>
+                            <img data-bind="attr: { src: Url }, css: { 'default-img': IsDefault }" class="responsive-image" />
+                            <p class="small-slider-caption">
+                                <!--<strong data-bind="text: $parent.nazivArtikla"></strong>-->
+                                <a href="#" class="send-mail-icon" data-bind="click: $parent.posaljiEmail"></a>
+                                <a href="#" class="make-default-image-icon" data-bind="click: $parent.postaviDefaultSliku"></a>
+                                <!--<a href="#" class="send-mail-icon" style="margin-left: 4px"></a>-->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
         <!--<a href="#" class="next-slider"></a>
-        <a href="#" class="prev-slider"></a>-->
+            <a href="#" class="prev-slider"></a>-->
     </div>
     <div class="decoration"></div>
     <div class="container no-bottom" style="margin-bottom: 4px;">
         <form data-bind="submit: unetEan">
-            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean"/>
+            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean" />
         </form>
-        <div class="toggle-1">
-            <a href="#" class="deploy-toggle-1" data-bind="click: prikaziDetaljeArtikla, text: detaljiArtiklaNaslov"></a>
-            
-            <div class="toggle-content" style="padding: 0 10px;">
+        <div class="toggle-1" data-bind="accordionVisible: vidljiviDetalji">
+            <a href="#" class="deploy-toggle-1" 
+                data-bind="click: prikaziDetaljeArtikla, text: detaljiArtiklaNaslov" id="detalji-tab-header"></a>
+
+            <div class="toggle-content" style="padding: 0 10px;" id="detalji-tab-content">
                 <div class="container no-bottom">
                     <table class="table">
                         <tbody>
@@ -53,7 +62,7 @@
         <i class="spinner" style="float: left" data-bind="visible: isBusy"></i>
         <div class="clear"></div>
         <button class="button-big-icon icon-scanner button-green" style="" data-bind="click: skeniraj">Skeniraj</button>
-        <button class="button-big-icon icon-camera button-green" style="" data-bind="click: slikaj">Slikaj</button><br/>
+        <button class="button-big-icon icon-camera button-green" style="" data-bind="click: slikaj">Slikaj</button><br />
         <!--<button class="button-big-icon icon-save button-red" style="margin-top: 4px" data-bind="click: sacuvaj">Sačuvaj</button>-->
     </div>
     <div class="container">

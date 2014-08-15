@@ -183,6 +183,10 @@
             //    $(this).fadeOut();
             //    return false;
             //});
+            $("input").on('focus', function() {
+                vidljiveSlike(false);
+                vidljiviDetalji(false);
+            });
         }
     };
 

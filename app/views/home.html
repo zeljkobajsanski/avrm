@@ -1,9 +1,12 @@
 ﻿<div class="content" id="homePage">
     <div class="container no-bottom">
+        <form data-bind="submit: unetEan">
+            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean" />
+        </form>
         <div class="toggle-1" data-bind="accordionVisible: vidljiveSlike">
             <a href="#" class="deploy-toggle-1" data-bind="click: prikaziSliku" id="slika-tab-header">Slika</a>
             <div class="toggle-content" id="slika-tab-content">
-                <div class="container">
+                <div class="container no-bottom">
                     <div class="slider-controls" data-bind="owlCarousel: { data: slike, owlOptions: { singleItem: true, slideSpeed: 250, paginationSpeed: 250, rewindSpeed: 250, pagination: true, autoPlay: false } }">
                         <div>
                             <img data-bind="attr: { src: Url }, css: { 'default-img': IsDefault }" class="responsive-image" />
@@ -19,15 +22,10 @@
 
             </div>
         </div>
-
-        <!--<a href="#" class="next-slider"></a>
-            <a href="#" class="prev-slider"></a>-->
     </div>
     <div class="decoration"></div>
     <div class="container no-bottom" style="margin-bottom: 4px;">
-        <form data-bind="submit: unetEan">
-            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean" />
-        </form>
+        
         <div class="toggle-1" data-bind="accordionVisible: vidljiviDetalji">
             <a href="#" class="deploy-toggle-1" 
                 data-bind="click: prikaziDetaljeArtikla, text: detaljiArtiklaNaslov" id="detalji-tab-header"></a>

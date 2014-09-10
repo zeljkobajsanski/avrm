@@ -1,7 +1,8 @@
-﻿<div class="content" id="homePage">
+<div class="content" id="homePage">
     <div class="container no-bottom">
         <form data-bind="submit: unetEan">
-            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean" />
+            <input type="number" class="contactField" id="eanField" placeholder="EAN" data-bind="value: ean" style="float: left;"/>
+            <input type="submit" class="button-icon icon-scanner2 button-green" value="" style="height:40px">
         </form>
         <div class="toggle-1" data-bind="accordionVisible: vidljiveSlike">
             <a href="#" class="deploy-toggle-1" data-bind="click: prikaziSliku" id="slika-tab-header">Slika</a>
